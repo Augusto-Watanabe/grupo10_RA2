@@ -1,1 +1,1 @@
-# grupo10_RA2
+Aplicativo em terminal desenvolvido para otimizar a leitura de textos em disco lento utilizando diferentes algoritmos de cache. O projeto simula o acesso de múltiplos usuários, mede cache hit/miss e tempo de resposta, e gera relatórios comparativos para identificar o algoritmo mais eficiente (FIFO, LRU e LFU).
