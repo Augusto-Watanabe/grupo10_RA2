@@ -160,44 +160,6 @@ if __name__ == "__main__":
     
     # Análise detalhada
     print("="*70)
-    print("ANÁLISE DO COMPORTAMENTO FIFO")
-    print("="*70)
-    print("""
-Observações sobre o comportamento:
-    
-1. Requisições [1, 2, 3]: 
-   - Todas são MISS, cache enche: [1, 2, 3]
-
-2. Requisição [1]:
-   - HIT! O texto 1 já está no cache
-   - FIFO não altera a ordem, continua: [1, 2, 3]
-
-3. Requisição [4]:
-   - MISS! Cache está cheio
-   - Remove o mais antigo (1): [2, 3]
-   - Adiciona 4: [2, 3, 4]
-
-4. Requisição [5]:
-   - MISS! Remove o mais antigo (2): [3, 4]
-   - Adiciona 5: [3, 4, 5]
-
-5. Requisição [2]:
-   - MISS! O texto 2 foi removido anteriormente
-   - Remove o mais antigo (3): [4, 5]
-   - Adiciona 2: [4, 5, 2]
-    
-Vantagens do FIFO:
-✓ Simples de implementar
-✓ Previsível e justo
-✓ Baixo overhead de processamento
-
-Desvantagens do FIFO:
-✗ Não considera frequência de uso
-✗ Pode remover itens ainda relevantes
-✗ Não se adapta ao padrão de acesso
-    """)
-    
-    print("="*70)
     print("Estado final da fila:", cache.get_queue_state())
     print("Textos no cache:", list(cache.cache.keys()))
     print("="*70)
