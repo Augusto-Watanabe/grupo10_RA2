@@ -1,8 +1,12 @@
 from core.text_loader import TextLoader
+from algorithms.fifo_cache import FIFOCache
 
 def menu():
     # Instancia o loader
     loader = TextLoader("texts")
+    
+    # Inicializa o cache (por enquanto usa BaseCache, depois será substituído)
+    FIFOcache = FIFOCache(capacity=10)
     
     while True:
         entrada = input("\nDigite o número do texto desejado (1-100), 0 para sair, ou -1 para simulação: ")
@@ -23,16 +27,24 @@ def menu():
             try:
                 # Converte para inteiro
                 text_num = int(entrada)
+
+                # Função wrapper para o loader
+                def load_from_disk(num):
+                    return loader.load_text(num)
                 
-                # Carrega o texto
-                content, load_time = loader.load_text(text_num)
+                # Obtém o texto através do cache
+                content, load_time, was_hit = FIFOcache.get(text_num, load_from_disk)
+                
+                # Exibe informações
+                status = "CACHE HIT ✓" if was_hit else "CACHE MISS ✗ (carregado do disco)"
                 
                 # Exibe informações
                 print(f"\n{'='*60}")
-                print(f"✓ Texto {text_num} carregado com sucesso!")
-                print(f"  Tempo de carregamento: {load_time:.4f}s")
+                print(f"✓ Texto {text_num} carregado com sucesso - {status}!")
+                print(f"  Tempo de carregamento: {load_time:.6f}s")
                 print(f"  Tamanho: {len(content)} caracteres")
                 print(f"  Palavras: {len(content.split())}")
+                print(f"Itens no cache: {FIFOcache.size()}/{FIFOcache.capacity}")
                 print(f"{'='*60}\n")
                 print(content)
                 print(f"\n{'='*60}")
@@ -50,4 +62,4 @@ def menu():
                 print(f"❌ Erro inesperado: {e}")
 
 if __name__ == "__main__":
-    menu()
+    menu()  
