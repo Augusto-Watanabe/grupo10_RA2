@@ -19,3 +19,8 @@ ENV/
 # OS
 .DS_Store
 Thumbs.db
+
+# Projeto específico
+docs_test/           # ← Pasta de teste (ignorar)
+*.log
+.pytest_cache/
