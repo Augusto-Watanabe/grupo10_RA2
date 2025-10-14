@@ -2,6 +2,7 @@ from core.text_loader import TextLoader
 from algorithms.fifo_cache import FIFOCache
 from algorithms.lru_cache import LRUCache
 from algorithms.lfu_cache import LFUCache
+from algorithms.arc_cache import ARCCache
 
 def menu():
     # Instancia o loader
@@ -11,8 +12,10 @@ def menu():
     FIFOcache = FIFOCache(capacity=10)
     # Inicializa o cache LRU
     LRUcache = LRUCache(capacity=10)
-    # Inicializa o cache LRU
+    # Inicializa o cache LFU
     LFUcache = LFUCache(capacity=10)
+    # Inicializa o cache ARC
+    ARCcache = ARCCache(capacity=10)
     
     while True:
         entrada = input("\nDigite o número do texto desejado (1-100), 0 para sair, ou -1 para simulação: ")
@@ -46,6 +49,9 @@ def menu():
 
                 # Obtém o texto através do cache LFU
                 LFUcontent, LFUload_time, LFUwas_hit = LFUcache.get(text_num, load_from_disk)
+
+                # Obtém o texto através do cache ARC
+                ARCcontent, ARCload_time, ARCwas_hit = ARCcache.get(text_num, load_from_disk)
                 
                 # Exibe informações FIFO
                 FIFOstatus = "CACHE HIT ✓" if FIFOwas_hit else "CACHE MISS ✗ (carregado do disco)"
@@ -55,6 +61,9 @@ def menu():
 
                 # Exibe informações LFU
                 LFUstatus = "CACHE HIT ✓" if LFUwas_hit else "CACHE MISS ✗ (carregado do disco)"
+
+                # Exibe informações ARC
+                ARCstatus = "CACHE HIT ✓" if ARCwas_hit else "CACHE MISS ✗ (carregado do disco)"
                 
                 # Exibição
                 print(f"\n{'='*60}")
@@ -86,8 +95,17 @@ def menu():
                 print(f"Itens no cache: {LFUcache.size()}/{LFUcache.capacity}")
                 print(f"{'='*60}\n")
 
+                # Exibe informações ARC
+                print(f"{'='*20}ARC{'='*20}")
+                print(f"✓ Texto {text_num} carregado com sucesso - {ARCstatus}!")
+                print(f"  Tempo de carregamento: {ARCload_time:.6f}s")
+                print(f"  Tamanho: {len(ARCcontent)} caracteres")
+                print(f"  Palavras: {len(ARCcontent.split())}")
+                print(f"Itens no cache: {ARCcache.size()}/{ARCcache.capacity}")
+                print(f"{'='*60}\n")
+
                 #Imprime o conteudo, que é igual para todos os caches
-                print(LFUcontent)
+                print(ARCcontent)
 
 
                 # Fim da exibição
