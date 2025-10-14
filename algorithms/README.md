@@ -1,7 +1,5 @@
 Observações sobre o comportamento dos tipos de cache:
 
-
-
 FIFO
 #Executar o código fifo_cache.py retorna um teste básico da implementação do algoritmo
 
@@ -52,3 +50,57 @@ LRU
     ✓ Mantém itens frequentemente acessados por mais tempo
     ✓ Se adapta melhor a padrões de acesso não-sequenciais
     ✓ É geralmente superior em cenários reais
+
+LFU
+#Executar o código lfu_cache.py retorna um teste básico da implementação do algoritmo
+    Sequência: [1, 2, 3, 1, 2, 1, 4, 1, 2, 1, 5, 1, 6]
+    Textos 1 e 2 são muito populares (acessados repetidamente)
+
+    1. Texto 1: MISS ✗ | Freq: {1: 1}
+    2. Texto 2: MISS ✗ | Freq: {1: 1, 2: 1}
+    3. Texto 3: MISS ✗ | Freq: {1: 1, 2: 1, 3: 1}
+    4. Texto 1: HIT ✓  | Freq: {1: 2, 2: 1, 3: 1}
+    5. Texto 2: HIT ✓  | Freq: {1: 2, 2: 2, 3: 1}
+    6. Texto 1: HIT ✓  | Freq: {1: 3, 2: 2, 3: 1}
+    7. Texto 4: MISS ✗ | Freq: {1: 3, 2: 2, 4: 1}
+    8. Texto 1: HIT ✓  | Freq: {1: 4, 2: 2, 4: 1}
+    9. Texto 2: HIT ✓  | Freq: {1: 4, 2: 3, 4: 1}
+    10. Texto 1: HIT ✓  | Freq: {1: 5, 2: 3, 4: 1}
+    11. Texto 5: MISS ✗ | Freq: {1: 5, 2: 3, 5: 1}
+    12. Texto 1: HIT ✓  | Freq: {1: 6, 2: 3, 5: 1}
+    13. Texto 6: MISS ✗ | Freq: {1: 6, 2: 3, 6: 1}
+
+    Quando LFU é superior:
+    ✓ Há itens "quentes" (hot items) acessados repetidamente
+    ✓ Padrão de acesso tem favoritos claros
+    ✓ Ex: Textos de referência, documentos importantes
+
+
+Comparação entre algoritmos
+    Sequência: [1, 2, 3, 1, 1, 4, 2, 5] com capacidade 3
+
+    FIFO (First In, First Out):
+    Remove sempre o mais ANTIGO (ordem de inserção)
+    [1, 2, 3] → acessa 1 → [1, 2, 3] HIT
+    [1, 2, 3] → acessa 1 → [1, 2, 3] HIT
+    [1, 2, 3] → acessa 4 → [2, 3, 4] ← Remove 1 (mais antigo)
+    ❌ Perdeu texto 1 que foi muito usado!    
+
+    LRU (Least Recently Used):
+    Remove o menos RECENTEMENTE usado
+    [1, 2, 3] → acessa 1 → [2, 3, 1] HIT (move pro final)
+    [2, 3, 1] → acessa 1 → [2, 3, 1] HIT (já está no final)
+    [2, 3, 1] → acessa 4 → [3, 1, 4] ← Remove 2 (menos recente)
+    ✓ Manteve texto 1, mas esquece frequência
+
+    LFU (Least Frequently Used):
+    Remove o menos FREQUENTEMENTE usado
+    [1(1), 2(1), 3(1)] → acessa 1 → [1(2), 2(1), 3(1)] HIT
+    [1(2), 2(1), 3(1)] → acessa 1 → [1(3), 2(1), 3(1)] HIT
+    [1(3), 2(1), 3(1)] → acessa 4 → [1(3), 2(1), 4(1)] ← Remove 3
+    [1(3), 2(1), 4(1)] → acessa 2 → [1(3), 2(2), 4(1)] HIT
+    [1(3), 2(2), 4(1)] → acessa 5 → [1(3), 2(2), 5(1)] ← Remove 4 (menor freq)
+    ✓✓ Mantém itens frequentes mesmo se não recentes!
+
+
+    
