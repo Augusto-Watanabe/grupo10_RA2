@@ -89,10 +89,12 @@ class ARCCache(CacheInterface):
         # CASE 2: HIT em B1 (texto foi removido recentemente de LRU)
         elif text_number in self.B1:
             self._handle_ghost_hit_B1(text_number)
+            self.misses += 1 #É considerado miss pois não está realmente no cache, é utilizado apenas para "aprendizado" do algoritmo
             
         # CASE 3: HIT em B2 (texto foi removido recentemente de LFU)  
         elif text_number in self.B2:
             self._handle_ghost_hit_B2(text_number)
+            self.misses += 1 #É considerado miss pois não está realmente no cache, é utilizado apenas para "aprendizado" do algoritmo
         
         # CASE 4: MISS completo (não está em nenhuma lista)
         else:

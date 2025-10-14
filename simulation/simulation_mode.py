@@ -47,10 +47,10 @@ def run_simulation_mode(loader: TextLoader,
 ║  • Gerar relatórios visuais comparativos                         ║
 ║                                                                  ║
 ║  Algoritmos a serem testados:                                    ║
-║    ✓ FIFO (First In, First Out)                                 ║
-║    ✓ LRU (Least Recently Used)                                  ║
-║    ✓ LFU (Least Frequently Used)                                ║
-║    ✓ ARC (Adaptive Replacement Cache) ⭐ Avançado              ║
+║    ✓ FIFO (First In, First Out)                                  ║
+║    ✓ LRU (Least Recently Used)                                   ║
+║    ✓ LFU (Least Frequently Used)                                 ║
+║    ✓ ARC (Adaptive Replacement Cache) ⭐ Avançado                ║
 ║                                                                  ║
 ║  Padrões de acesso:                                              ║
 ║    • Aleatório: distribuição uniforme                            ║

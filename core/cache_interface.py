@@ -131,6 +131,13 @@ class BaseCache(CacheInterface):
     Implementação base com funcionalidades comuns.
     Pode ser usado como exemplo ou classe auxiliar.
     """
+    def __init__(self, capacity: int = 10):
+        """
+        Inicializa a BaseCache, garantindo que o construtor da
+        CacheInterface seja chamado para inicializar as métricas.
+        """
+        super().__init__(capacity)
+
     
     def get(self, text_number: int, loader_function) -> Tuple[str, float, bool]:
         """
