@@ -3,6 +3,7 @@ from algorithms.fifo_cache import FIFOCache
 from algorithms.lru_cache import LRUCache
 from algorithms.lfu_cache import LFUCache
 from algorithms.arc_cache import ARCCache
+from simulation.simulation_mode import run_simulation_mode
 
 def menu():
     # Instancia o loader
@@ -28,8 +29,18 @@ def menu():
         # Modo simulação
         elif entrada == "-1":
             print("Iniciando modo simulação...")
-            # TODO: adicionar função do modo simulação
-            # simulation_mode()
+            run_simulation_mode(
+                loader,
+                cache_capacity=10,
+                num_users=3,
+                requests_per_user=200
+            )
+            
+            # Pergunta se quer continuar ou sair
+            continuar = input("\nDeseja continuar usando o sistema? (s/n): ").strip().lower()
+            if continuar != 's':
+                print("Encerrando...")
+                break
         
         # Carregar texto
         else:
