@@ -35,3 +35,20 @@ FIFO
     ✗ Não considera frequência de uso
     ✗ Pode remover itens ainda relevantes
     ✗ Não se adapta ao padrão de acesso
+
+LRU
+#Executar o código lru_cache.py retorna um teste básico da implementação do algoritmo
+
+    sequência [1, 2, 3, 1, 4, 2, 5]:
+    1. [1]           MISS
+    2. [1, 2]        MISS
+    3. [1, 2, 3]     MISS
+    4. [2, 3, 1]     HIT   ← Acessa 1, move pro final (mais recente)
+    5. [3, 1, 4]     MISS  ← Remove 2 (menos usado recentemente)
+    6. [1, 4, 2]     MISS  ← Remove 3, mas 1 permanece!
+    7. [4, 2, 5]     MISS  ← Remove 1 
+
+    Vantagens LRU:
+    ✓ Mantém itens frequentemente acessados por mais tempo
+    ✓ Se adapta melhor a padrões de acesso não-sequenciais
+    ✓ É geralmente superior em cenários reais
